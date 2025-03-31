@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tài Chính Cá Nhân</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="beginning">
+      <div class="content">📒 Tài Chính Cá Nhân K24_Rikkei</div>
+      <div class="head">
+        <a href="" id="logoutBtn">Tài khoản</a>
+        <a href=""><i class="fa-solid fa-chevron-down"></i></a>
+      </div>
+    </div>
+    <div class="tbody">
+      <div class="main">
+        <h2>🎯 Kiểm soát chi tiêu thông minh</h2>
+        <p>Theo dõi ngân sách và thu chi hằng tháng dễ dàng</p>
+      </div>
+      <div class="auxiliary">
+        <div class="content">📊 Quản Lý Tài Chính Cá Nhân</div>
+        <div class="container">
+          <span> 📅 Chọn tháng:</span>
+          <input type="date" id="month-selector" />
+        </div>
+        <div class="container2">
+          <span>💰 Ngân sách tháng:</span>
+          <input type="number" id="monthly-budget" placeholder="VD 5000000" />
+          <button id="save-budget">Lưu</button>
+        </div>
+        <div class="container3">
+          <p>Số tiền còn lại</p>
+          <div id="remaining-amount">0 VND</div>
+        </div>
+        <div class="container4">
+          <p>💼 Quản lý danh mục (theo tháng)</p>
+          <div class="enter">
+            <input type="text" id="category-name" placeholder="Tên danh mục" />
+            <input type="number" id="category-limit" placeholder="Giới hạn (VND)" />
+            <button id="add-category">Thêm danh mục</button>
+          </div>
+          <div class="content2" id="categories-container">
+            <!-- Categories will be added here -->
+          </div>
+        </div>
+        <div class="container5">
+          <input type="number" id="transaction-amount" placeholder="Số tiền" />
+          <select id="transaction-category">
+            <option value="">Chọn danh mục</option>
+          </select>
+          <input type="text" id="transaction-note" placeholder="Ghi chú" />
+          <button id="add-transaction">Thêm</button>
+        </div>
+        <div class="container6">
+          <p>🧾 Lịch sử giao dịch</p>
+          <div class="select">
+            <div>
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="search-transactions" placeholder="tìm nội dung" />
+            </div>
+            <select id="sort-transactions">
+              <option>Sắp xếp theo giá</option>
+              <option>Giá tăng dần</option>
+              <option>Giá giảm dần</option>
+            </select>
+          </div>
+          <div class="content3" id="transactions-container">
+            <!-- Transactions will be added here -->
+          </div>
+          <div class="move">
+            <button class="item">Previous</button>
+            <button class="button">1</button>
+            <button class="button">2</button>
+            <button class="button">3</button>
+            <button class="item2">Next</button>
+          </div>
+        </div>
+        <div class="container7" id="budget-alert">
+          <p>Danh mục"tiền ăn" đã vượt giới hạn: 1,060,000 / 1,000,000 VND</p>
+        </div>
+        <div class="container8">
+          <p>📆 Thống kê chi tiêu các tháng</p>
+          <div class="item">
+            <span>tháng</span>
+            <span>chi tiêu</span>
+            <span>Ngân sách</span>
+            <span>Trạng thái</span>
+          </div>
+          <div class="item">
+            <span>2025-03</span>
+            <span>2,150,000 VND</span>
+            <span>5,000,000</span>
+            <span>✅ Đạt</span>
+          </div>
+          <div class="item">
+            <span>2025-04</span>
+            <span>3,100,000 VND</span>
+            <span>3,000,000</span>
+            <span>vượt</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tfoot">
+      <p>© 2025 Quản Lý Tài Chính Cá Nhân. by Quốc Hai!</p>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="finance.js"></script>
+</body>
+</html>
