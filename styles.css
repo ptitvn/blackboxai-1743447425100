@@ -1,0 +1,315 @@
+/* Base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f3f4f6;
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container and layout */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Header styles */
+.header {
+    background-color: #4338CA;
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Auth form styles */
+.auth-form {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #4338CA;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #4338CA;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Finance dashboard styles */
+.finance-banner {
+    background-color: #4338CA;
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.finance-banner h1 {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.finance-dashboard {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.finance-dashboard h2 {
+    color: #4338CA;
+    margin-bottom: 1.5rem;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+}
+
+.control-group label {
+    font-weight: 500;
+}
+
+.control-group input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+}
+
+.budget-control {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+}
+
+.remaining-balance {
+    text-align: center;
+    padding: 1rem;
+    background-color: #f0fdf4;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+}
+
+.remaining-balance .amount {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4338CA;
+}
+
+.remaining-balance .amount.negative {
+    color: #ef4444;
+}
+
+.categories-section, .transaction-section {
+    margin: 2rem 0;
+}
+
+.category-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.category-form input {
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+}
+
+.categories-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.category-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f9fafb;
+    border-radius: 0.5rem;
+    border-left: 4px solid #4338CA;
+}
+
+.category-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.transaction-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.transaction-controls input,
+.transaction-controls select {
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+}
+
+.transactions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f9fafb;
+    border-radius: 0.25rem;
+}
+
+.alert-message {
+    padding: 1rem;
+    background-color: #fef2f2;
+    color: #b91c1c;
+    border-radius: 0.25rem;
+    margin: 1rem 0;
+}
+
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.stats-table th, .stats-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.stats-table th {
+    background-color: #4338CA;
+    color: white;
+}
+
+.status-success {
+    color: #10b981;
+}
+
+.status-warning {
+    color: #f59e0b;
+}
+
+/* Footer styles */
+.footer {
+    background-color: #4338CA;
+    color: white;
+    padding: 1.5rem 0;
+    text-align: center;
+    margin-top: auto;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .main-nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+    
+    .budget-control, .category-form, .transaction-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-table {
+        display: block;
+        overflow-x: auto;
+    }
+}
