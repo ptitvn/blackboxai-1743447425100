@@ -1,22 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
-    const monthSelector = document.getElementById('month-selector');
-    const monthlyBudgetInput = document.getElementById('monthly-budget');
-    const saveBudgetBtn = document.querySelector('.budget-control .save-btn');
-    const remainingAmount = document.getElementById('remaining-amount');
-    const categoryNameInput = document.getElementById('category-name');
-    const categoryLimitInput = document.getElementById('category-limit');
-    const addCategoryBtn = document.querySelector('.category-form .add-btn');
-    const categoriesContainer = document.getElementById('categories-container');
-    const transactionAmountInput = document.getElementById('transaction-amount');
-    const transactionCategorySelect = document.getElementById('transaction-category');
-    const transactionNoteInput = document.getElementById('transaction-note');
-    const addTransactionBtn = document.querySelector('.transaction-controls .add-btn');
-    const transactionsContainer = document.getElementById('transactions-container');
-    const budgetAlert = document.getElementById('budget-alert');
-    const searchInput = document.querySelector('.search-box input');
-    const sortSelect = document.querySelector('.sort-select');
-
     // Initialize data
     let financeData = {
         currentMonth: new Date().toISOString().slice(0, 7),
@@ -24,6 +6,25 @@ document.addEventListener('DOMContentLoaded', function() {
         categories: [],
         transactions: []
     };
+
+    // DOM elements
+    const logoutBtn = document.getElementById('logoutBtn');
+    const monthSelector = document.getElementById('month-selector');
+    const monthlyBudget = document.getElementById('monthly-budget');
+    const saveBudgetBtn = document.getElementById('save-budget');
+    const remainingAmount = document.getElementById('remaining-amount');
+    const categoryName = document.getElementById('category-name');
+    const categoryLimit = document.getElementById('category-limit');
+    const addCategoryBtn = document.getElementById('add-category');
+    const categoriesContainer = document.getElementById('categories-container');
+    const transactionAmount = document.getElementById('transaction-amount');
+    const transactionCategory = document.getElementById('transaction-category');
+    const transactionNote = document.getElementById('transaction-note');
+    const addTransactionBtn = document.getElementById('add-transaction');
+    const transactionsContainer = document.getElementById('transactions-container');
+    const searchTransactions = document.getElementById('search-transactions');
+    const sortTransactions = document.getElementById('sort-transactions');
+    const budgetAlert = document.getElementById('budget-alert');
 
     // Load data from localStorage
     function loadData() {
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Set current month
         monthSelector.value = financeData.currentMonth;
-        monthlyBudgetInput.value = financeData.monthlyBudget;
+        monthlyBudget.value = financeData.monthlyBudget;
         
         // Update UI
         updateRemainingBalance();
@@ -59,9 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
         remainingAmount.textContent = remaining.toLocaleString('vi-VN') + ' VND';
         
         if (remaining < 0) {
-            remainingAmount.classList.add('negative');
+            remainingAmount.style.color = '#ef4444';
         } else {
-            remainingAmount.classList.remove('negative');
+            remainingAmount.style.color = '#4338CA';
         }
     }
 
@@ -70,24 +71,15 @@ document.addEventListener('DOMContentLoaded', function() {
         categoriesContainer.innerHTML = '';
         
         financeData.categories.forEach((category, index) => {
-            const categoryElement = document.createElement('div');
-            categoryElement.className = 'category-item';
-            
             const spent = financeData.transactions
                 .filter(t => t.category === category.name)
                 .reduce((sum, t) => sum + parseFloat(t.amount), 0);
             
-            const progress = Math.min((spent / category.limit) * 100, 100);
-            
+            const categoryElement = document.createElement('div');
+            categoryElement.className = 'content2';
             categoryElement.innerHTML = `
-                <div class="category-info">
-                    <span>${category.name}</span>
-                    <span>${spent.toLocaleString('vi-VN')} / ${category.limit.toLocaleString('vi-VN')} VND</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: ${progress}%"></div>
-                </div>
-                <div class="category-actions">
+                <div class="item">${category.name}-Giới hạn: ${category.limit.toLocaleString('vi-VN')}</div>
+                <div class="item_button">
                     <button class="edit-btn" data-id="${index}">Sửa</button>
                     <button class="delete-btn" data-id="${index}">Xóa</button>
                 </div>
@@ -108,13 +100,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Update category select for transactions
     function updateCategorySelect() {
-        transactionCategorySelect.innerHTML = '<option value="">Chọn danh mục</option>';
+        transactionCategory.innerHTML = '<option value="">Chọn danh mục</option>';
         
         financeData.categories.forEach(category => {
             const option = document.createElement('option');
             option.value = category.name;
             option.textContent = category.name;
-            transactionCategorySelect.appendChild(option);
+            transactionCategory.appendChild(option);
         });
     }
 
@@ -127,14 +119,14 @@ document.addEventListener('DOMContentLoaded', function() {
             .filter(t => t.date.startsWith(financeData.currentMonth));
         
         // Sort transactions
-        if (sortSelect.value === 'Giá tăng dần') {
+        if (sortTransactions.value === 'Giá tăng dần') {
             currentMonthTransactions.sort((a, b) => a.amount - b.amount);
-        } else if (sortSelect.value === 'Giá giảm dần') {
+        } else if (sortTransactions.value === 'Giá giảm dần') {
             currentMonthTransactions.sort((a, b) => b.amount - a.amount);
         }
         
         // Filter by search term
-        const searchTerm = searchInput.value.toLowerCase();
+        const searchTerm = searchTransactions.value.toLowerCase();
         const filteredTransactions = searchTerm 
             ? currentMonthTransactions.filter(t => 
                 t.note.toLowerCase().includes(searchTerm) || 
@@ -143,13 +135,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         filteredTransactions.forEach((transaction, index) => {
             const transactionElement = document.createElement('div');
-            transactionElement.className = 'transaction-item';
-            
+            transactionElement.className = 'content2';
             transactionElement.innerHTML = `
-                <div class="transaction-info">
-                    <span>${transaction.category} - ${transaction.note}: ${parseFloat(transaction.amount).toLocaleString('vi-VN')} VND</span>
-                </div>
-                <div class="transaction-actions">
+                <div class="item">${transaction.category}-${transaction.note}: ${parseFloat(transaction.amount).toLocaleString('vi-VN')}</div>
+                <div class="item_button">
                     <button class="delete-btn" data-id="${index}">Xóa</button>
                 </div>
             `;
@@ -158,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Add event listeners to delete buttons
-        document.querySelectorAll('.transaction-item .delete-btn').forEach(btn => {
+        document.querySelectorAll('.content2 .delete-btn').forEach(btn => {
             btn.addEventListener('click', deleteTransaction);
         });
     }
@@ -187,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event handlers
     function saveMonthlyBudget() {
-        financeData.monthlyBudget = parseFloat(monthlyBudgetInput.value) || 0;
+        financeData.monthlyBudget = parseFloat(monthlyBudget.value) || 0;
         financeData.currentMonth = monthSelector.value;
         saveData();
         updateRemainingBalance();
@@ -195,8 +184,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function addCategory() {
-        const name = categoryNameInput.value.trim();
-        const limit = parseFloat(categoryLimitInput.value) || 0;
+        const name = categoryName.value.trim();
+        const limit = parseFloat(categoryLimit.value) || 0;
         
         if (name && limit > 0) {
             financeData.categories.push({
@@ -210,8 +199,8 @@ document.addEventListener('DOMContentLoaded', function() {
             checkBudgetAlerts();
             
             // Clear inputs
-            categoryNameInput.value = '';
-            categoryLimitInput.value = '';
+            categoryName.value = '';
+            categoryLimit.value = '';
         }
     }
 
@@ -228,14 +217,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const index = e.target.dataset.id;
         const category = financeData.categories[index];
         
-        categoryNameInput.value = category.name;
-        categoryLimitInput.value = category.limit;
+        categoryName.value = category.name;
+        categoryLimit.value = category.limit;
         
         // Change add button to update
         addCategoryBtn.textContent = 'Cập nhật';
         addCategoryBtn.onclick = function() {
-            category.name = categoryNameInput.value.trim();
-            category.limit = parseFloat(categoryLimitInput.value) || 0;
+            category.name = categoryName.value.trim();
+            category.limit = parseFloat(categoryLimit.value) || 0;
             
             saveData();
             renderCategories();
@@ -243,17 +232,17 @@ document.addEventListener('DOMContentLoaded', function() {
             checkBudgetAlerts();
             
             // Reset form
-            categoryNameInput.value = '';
-            categoryLimitInput.value = '';
+            categoryName.value = '';
+            categoryLimit.value = '';
             addCategoryBtn.textContent = 'Thêm danh mục';
             addCategoryBtn.onclick = addCategory;
         };
     }
 
     function addTransaction() {
-        const amount = parseFloat(transactionAmountInput.value) || 0;
-        const category = transactionCategorySelect.value;
-        const note = transactionNoteInput.value.trim();
+        const amount = parseFloat(transactionAmount.value) || 0;
+        const category = transactionCategory.value;
+        const note = transactionNote.value.trim();
         const date = new Date().toISOString().slice(0, 10);
         
         if (amount > 0 && category && note) {
@@ -270,9 +259,9 @@ document.addEventListener('DOMContentLoaded', function() {
             checkBudgetAlerts();
             
             // Clear inputs
-            transactionAmountInput.value = '';
-            transactionNoteInput.value = '';
-            transactionCategorySelect.value = '';
+            transactionAmount.value = '';
+            transactionNote.value = '';
+            transactionCategory.value = '';
         }
     }
 
@@ -285,13 +274,19 @@ document.addEventListener('DOMContentLoaded', function() {
         checkBudgetAlerts();
     }
 
+    function logout() {
+        localStorage.removeItem('loggedIn');
+        window.location.href = 'login.html';
+    }
+
     // Event listeners
+    logoutBtn.addEventListener('click', logout);
     monthSelector.addEventListener('change', saveMonthlyBudget);
     saveBudgetBtn.addEventListener('click', saveMonthlyBudget);
     addCategoryBtn.addEventListener('click', addCategory);
     addTransactionBtn.addEventListener('click', addTransaction);
-    searchInput.addEventListener('input', renderTransactions);
-    sortSelect.addEventListener('change', renderTransactions);
+    searchTransactions.addEventListener('input', renderTransactions);
+    sortTransactions.addEventListener('change', renderTransactions);
 
     // Initialize
     loadData();
